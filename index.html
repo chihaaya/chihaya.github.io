@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Monumenta</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <p>
+      <lable>anvil <input type="number" id="inputLevel" value="0" min="0"></lable>
+    </p>
+    <p id="reqLevel"></p>
+    <p>
+      <label for="SelectedRegion">Select Region</label>
+      <select id="SelectedRegion">
+        <option value="King's Valley">King's Valley</option>
+        <option value="Celsian Isles">Celsian Isles</option>
+        <option value="Architect's Ring">Architect's Ring</option>
+      </select>
+    </p>
+    <p id="target"></p>
+    <table id="CityInfo" style="text-align: center">
+      <tr>
+        <th>Name</th>
+        <th>X</th>
+        <th>Y</th>
+        <th>Z</th>
+        <th>distance</th>
+      </tr>
+    </table>
+    <p>
+      <label>X:<input type="text" id="inputX" size="5" /></label>
+      <label>Y:<input type="text" id="inputY" size="5" /></label>
+      <label>Z:<input type="text" id="inputZ" size="5" /></label>
+      <input type="button" value="Calculate" id="calculateButton" />
+      <input type="button" value="Reset" id="resetButton" />
+    </p>
+    <p>
+      <input type="text" id="input" placeholder="copy coords">
+      <input type="button" value="Calculate" id="calculateButton2">
+      <input type="button" value="Reset" id="resetButton2">
+    </p>
+    <p>
+      <input type="text" id="searchBox" placeholder="Search PoIs" />
+      <input type="text" id="searchBox2" placeholder="Search PoIs" />
+      <input type="text" id="searchBox3" placeholder="Search PoIs" />
+	  <input type="button" value="Reset" id="resetInput">
+	  <input type="button" value="toggle" id="toggleRegion">
+    </p>
+    <p>
+      <table id="PoIList" style="text-align: center;">
+        <tr>
+          <th>Name</th>
+          <th>X</th>
+          <th>Y</th>
+          <th>Z</th>
+          <th>Spawners</th>
+          <th>closest city</th>
+          <th>distance</th>
+        </tr>
+      </table>
+    </p>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

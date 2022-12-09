@@ -1,0 +1,17 @@
+@charset "UTF-8";
+select {
+  font-size: 15px;
+}
+#inputLevel {
+  width: 50px;
+}
+table {
+  border: 0px;
+}
+td {
+  border: 1px solid;
+}
+th {
+  border: 1px solid;
+  width: 150px;
+}
