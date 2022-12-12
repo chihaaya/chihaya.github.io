@@ -36,7 +36,7 @@ function cityInfo() {
       tr.appendChild(button);
       table.appendChild(tr);
     }
-  } else sortCityInfo();
+  } else return sortCityInfo();
 }
 
 function sortCityInfo() {
@@ -81,6 +81,7 @@ function sortCityInfo() {
     tr.appendChild(button);
     table.appendChild(tr);
   }
+  return distances[0];
 }
 
 function resetCityTable() {
@@ -183,20 +184,45 @@ function setCityCoords(event) {
 
 function setPoICoords(event) {
   var region = document.getElementById("SelectedRegion").value;
-  document.getElementById("inputX").value = data.Regions[region].PointOfInterest[event.target.id].location["X"];
-  document.getElementById("inputY").value = data.Regions[region].PointOfInterest[event.target.id].location["Y"];
-  document.getElementById("inputZ").value = data.Regions[region].PointOfInterest[event.target.id].location["Z"];
-  cityInfo();
-  document.getElementById("target").innerText =
-    "current Target: " +
-    data.Regions[region].PointOfInterest[event.target.id].name +
-    " (" +
-    document.getElementById("inputX").value +
-    "," +
-    document.getElementById("inputY").value +
-    "," +
-    document.getElementById("inputZ").value +
-    ")";
+  var targetName = data.Regions[region].PointOfInterest[event.target.id].name;
+  var targetX = data.Regions[region].PointOfInterest[event.target.id].location["X"];
+  var targetY = data.Regions[region].PointOfInterest[event.target.id].location["Y"];
+  var targetZ = data.Regions[region].PointOfInterest[event.target.id].location["Z"];
+  document.getElementById("target").innerText = "current Target: " + targetName + " (" + targetX + "," + targetY + "," + targetZ + ")";
+  document.getElementById("inputX").value = targetX;
+  document.getElementById("inputY").value = targetY;
+  document.getElementById("inputZ").value = targetZ;
+
+  var closestCity = cityInfo();
+  var X = data.Regions[region].Cities[closestCity[1]].location["X"];
+  var Y = data.Regions[region].Cities[closestCity[1]].location["Y"];
+  var Z = data.Regions[region].Cities[closestCity[1]].location["Z"];
+
+  var Xdiff = targetX - X;
+  var Ydiff = targetY - Y;
+  var Zdiff = targetZ - Z;
+
+  var degree = (Math.atan2(Xdiff, Zdiff) * 180) / Math.PI;
+  var directions = ["S", "SSE", "SE", "ESE", "E", "ENE", "NE", "NNE", "N", "NNW", "NW", "WNW", "W", "WSW", "SW", "SSW", "S"];
+  var deg2 = (degree + 360) % 360;
+  var cnt = 0;
+  for (var i = 11.25; i < 360 + 11.25; i += 22.5) {
+    if (deg2 < i) {
+      break;
+    }
+    cnt++;
+  }
+
+  //コピー
+  var str = targetName + " (" + targetX + "," + targetY + "," + targetZ + ")";
+  str = str + ": " + closestCity[1] + " (" + Math.round(closestCity[0] * 10) / 10 + " blocks, " + directions[cnt];
+  str = str + " (" + Math.round(degree * -10) / 10 + ")";
+  if (Xdiff >= 0) str = str + " (X +" + Xdiff;
+  else str = str + " (X " + Xdiff;
+  if (Zdiff >= 0) str = str + ", Z +" + Zdiff + "))";
+  else str = str + ", Z " + Zdiff + "))";
+  //console.log(str);
+  navigator.clipboard.writeText(str);
 }
 
 function resetInput() {
