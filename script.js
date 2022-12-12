@@ -223,6 +223,7 @@ function setPoICoords(event) {
   else str = str + ", Z " + Zdiff + "))";
   //console.log(str);
   navigator.clipboard.writeText(str);
+  document.getElementById("targetInfo").innerText = str;
 }
 
 function resetInput() {
